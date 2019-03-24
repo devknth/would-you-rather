@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import QCard from './QCard'
 
 class QList extends Component {
@@ -7,11 +8,24 @@ class QList extends Component {
   render () {
     return (
       <div>
-        <h1>Hello world! This is Question List.</h1>
-        <QCard />
+        <h3>Question List</h3>
+        <ul>
+          {this.props.questionIds.map((id) => (
+            <li key={id}>
+              <QCard id={id}/>
+            </li>
+          ))}
+        </ul>
       </div>
     )
   }
 }
 
-export default QList
+function mapStateToProps ({ questions }) {
+  return {
+    questionIds: Object.keys(questions)
+      .sort((a,b) => questions[b].timestamp - questions[a].timestamp)
+  }
+}
+
+export default connect(mapStateToProps)(QList)
