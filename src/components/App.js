@@ -1,8 +1,11 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
-import QList from './QList'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { handleInitialData } from '../actions/shared'
 import LoadingBar from 'react-redux-loading'
+import QDetail from './QDetail'
+import QList from './QList'
+import Nav from './Nav'
 
 class App extends Component {
   componentDidMount() {
@@ -11,13 +14,19 @@ class App extends Component {
 
   render () {
     return (
-      <Fragment>
-        <LoadingBar />
-        {this.props.loading === true
-          ? null
-          : <QList />
-        }
-      </Fragment>
+      <Router>
+        <Fragment>
+          <LoadingBar />
+          <Nav />
+          {this.props.loading === true
+            ? null
+            : <div>
+                <Route path='/' exact component={QList} />
+                <Route path='/qdetail/:id' exact component={QDetail} />
+              </div>
+          }
+        </Fragment>
+      </Router>
     )
   }
 }
