@@ -20,7 +20,7 @@ class App extends Component {
           <Nav />
           {this.props.loading === true
             ? null
-            : <div>
+            : <div className='container'>
                 <Route path='/' exact component={QList} />
                 <Route path='/qdetail/:id' exact component={QDetail} />
               </div>

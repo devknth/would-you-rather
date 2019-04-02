@@ -13,18 +13,7 @@ export default function questions (state = {}, action) {
         [action.question.id]: action.question,
       }
       case ANSWER :
-      const users = {
-        ...users,
-        [action.authedUser]: {
-          ...users[action.authedUser],
-          answers: {
-            ...users[action.authedUser].answers,
-            [action.qid]: action.answer
-          }
-        }
-      }
-      
-      const questions = {
+      return {
         ...state,
         [action.qid]: {
           ...state[action.qid],
@@ -34,7 +23,6 @@ export default function questions (state = {}, action) {
           }
         }
       }
-      return { users, questions } 
     default :
       return state
   }

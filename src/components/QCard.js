@@ -1,29 +1,36 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { formatDate } from '../utils/helpers'
 import { Link, withRouter } from 'react-router-dom'
 
 class QCard extends Component {
   //click vote card
   
   render () {
-    const { author, optionOne, optionTwo, id } = this.props.question
+    const { optionOne, optionTwo, id, timestamp } = this.props.question
+    const { name } = this.props.user
     return (
-      <Link to={`/qdetail/${id}`}>
-        <div>
-          <h4>Author: { author }</h4>
-          <ul>
-            <li>Option #1 - '{ optionOne.text }' ({optionOne.votes.length}) { optionOne.votes.indexOf(this.props.authedUser) > -1 ? '<< Your Pick!' : null }</li>
-            <li>Option #2 - '{ optionTwo.text }' ({optionTwo.votes.length}) { optionTwo.votes.indexOf(this.props.authedUser) > -1 ? '<< Your Pick!' : null }</li>
-          </ul>
+      <Link to={`/qdetail/${id}`} className='question'>
+        <div className='question-info'>
+          <div>
+            <span>{name}</span>
+            <div className='date'>{formatDate(timestamp)}</div>
+            <button className='counter'> { optionOne.votes.length + optionTwo.votes.length } People voted</button>
+            <p>
+              { optionOne.text } vs { optionTwo.text } 
+            </p>
+          </div>
         </div>
       </Link>
     )
   }
 }
 
-function mapStateToProps ({ authedUser, questions }, { id }) {
+function mapStateToProps ({ authedUser, questions, users }, { id }) {
   const question = questions[id]
+  const user = users[question.author]
 
-  return { authedUser, question }
+  return { authedUser, question, user }
 }
+
 export default withRouter(connect(mapStateToProps)(QCard))
