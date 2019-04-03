@@ -5,6 +5,7 @@ import { handleInitialData } from '../actions/shared'
 import LoadingBar from 'react-redux-loading'
 import QDetail from './QDetail'
 import QList from './QList'
+import AddQ from './AddQ'
 import Nav from './Nav'
 
 class App extends Component {
@@ -22,6 +23,7 @@ class App extends Component {
             ? null
             : <div className='container'>
                 <Route path='/' exact component={QList} />
+                <Route path='/new' exact component={AddQ} />
                 <Route path='/qdetail/:id' exact component={QDetail} />
               </div>
           }
