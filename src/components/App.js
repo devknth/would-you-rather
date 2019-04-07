@@ -25,29 +25,26 @@ class App extends Component {
     const { authedUser, loading } = this.props
     return (
       <Router>
-      {
-        authedUser === UNAUTHED
-        ? 
-        <Route path='/' component={Login} />
-        : 
         <Fragment>
           <LoadingBar />
             <Nav />
             {loading === true
             ? null
-            : 
-            <div className='container'>
-              <h4 className='right'>
-                Hello, {authedUser}! <button onClick={this.logOut}>Log Out</button>
-              </h4>
-              <Route path='/' exact component={QList} />
-              <Route path='/add' exact component={AddQ} />
-              <Route path='/questions/:id' exact component={QDetail} />
-              <Route path='/leaderboard' exact component={Rank} />
-            </div>
+            : authedUser === UNAUTHED
+              ? 
+              <Route path='/' component={Login} />
+              : 
+              <div className='container'>
+                <h4 className='right'>
+                  Hello, {authedUser}! <button onClick={this.logOut}>Log Out</button>
+                </h4>
+                <Route path='/' exact component={QList} />
+                <Route path='/add' exact component={AddQ} />
+                <Route path='/questions/:id' exact component={QDetail} />
+                <Route path='/leaderboard' exact component={Rank} />
+              </div>
             }
         </Fragment>
-      }
       </Router>
     )
   }
