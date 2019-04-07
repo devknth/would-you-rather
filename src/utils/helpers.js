@@ -7,3 +7,7 @@ export function formatDate (timestamp) {
 export function checkVoted (question, user) {
   return question.optionOne.votes.indexOf(user) > -1 || question.optionTwo.votes.indexOf(user) > -1
 }
+
+export function getLength (obj) {
+  return Object.keys(obj).length
+}

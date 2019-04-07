@@ -1,5 +1,6 @@
 import { showLoading, hideLoading } from 'react-redux-loading'
 import { saveQuestion } from '../utils/api'
+import { addQuestionToUser } from './users'
 
 export const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS'
 export const ADD_QUESTION = 'ADD_QUESTION'
@@ -23,7 +24,10 @@ export function handleAddQuestion (question) {
   return (dispatch, getState) => {
     dispatch(showLoading())
     return saveQuestion(question)
-      .then((question) => dispatch(addQuestion(question)))
+      .then((question) => {
+        dispatch(addQuestion(question))
+        dispatch(addQuestionToUser(question))
+      })
       .then(() => dispatch(hideLoading()))
   }
 }

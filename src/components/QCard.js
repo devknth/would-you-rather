@@ -10,7 +10,7 @@ class QCard extends Component {
     const { optionOne, optionTwo, id, timestamp } = this.props.question
     const { name } = this.props.user
     return (
-      <Link to={`/qdetail/${id}`} className='question'>
+      <Link to={`/questions/${id}`} className='question'>
         <div className='question-info'>
           <div>
             <span>{name}</span>
