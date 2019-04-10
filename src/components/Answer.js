@@ -1,1 +1,0 @@
-//click vote > data updated

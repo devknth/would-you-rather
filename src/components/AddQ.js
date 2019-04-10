@@ -44,7 +44,7 @@ class AddQ extends Component {
   }
 
   render () {
-    const { authedUser } = this.props
+    const { authedUser, user } = this.props
     const { text, toHome } = this.state
 
     if (toHome === true) {
@@ -55,6 +55,13 @@ class AddQ extends Component {
       <div className='option'>
         <h2>Would you rather?</h2>
         <form className='new-question' onSubmit={this.handleSubmit}>
+        <div>
+          <img
+            src={user.avatarURL}
+            alt={`Avatar of ${user.name}`}
+            className='avatar'
+          />
+        </div>
         <div className='question-info right'>
           <div>
             <span>{authedUser}</span>
@@ -85,8 +92,9 @@ class AddQ extends Component {
   }
 }
 
-function mapStateToProps ({ authedUser }) {
+function mapStateToProps ({ users, authedUser }) {
   return {
+    user: users[authedUser],
     authedUser
   }
 }
