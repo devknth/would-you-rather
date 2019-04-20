@@ -17,7 +17,7 @@ export default function Nav () {
         </li>
         <li>
           <NavLink to='/leaderboard' activeClassName='active'>
-            Learder Board
+            Leader Board
           </NavLink>
         </li>
       </ul>

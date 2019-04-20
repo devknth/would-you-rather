@@ -7,7 +7,7 @@ import { addAnswerToUser } from '../actions/users'
 
 class QDetail extends Component {
   state = {
-    toHome: false
+    question: {}
   }
 
   handleVote = (e) => {
@@ -18,7 +18,13 @@ class QDetail extends Component {
       this.props.dispatch(answer(authedUser, question.id, value)),
       this.props.dispatch(addAnswerToUser(authedUser, question.id, value))
     ]).then(() => {
-      this.setState({toHome: true})
+      this.setState({question: {
+        ...question, 
+        value: {
+          votes: [...question[value].votes, authedUser],
+          text: question[value].text
+        }
+      }})
     })
   }
 
@@ -32,8 +38,8 @@ class QDetail extends Component {
       return <Redirect to='/404' />
     }
     
-    if (toHome === true) {
-      return <Redirect to='/' />
+    if (Object.is(this.state.question, {})) {
+      return this.setState({question: question})
     }
 
     return (
